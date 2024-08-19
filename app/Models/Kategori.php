@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Kategori extends Model
 {
     use HasFactory;
+    protected $table = 'kategori';
+    protected $primaryKey = 'id_kategori';
+    protected $fillable = [
+      'nama_kategori'
+];
+
+public function bukus()
+{
+    return $this->hasMany(Buku::class, 'id_kategori');
+}
 }

@@ -1,14 +1,14 @@
-@extends('app')
+@extends('app' , ['page' => 'kategori'])
 @section('content')
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Add Buku</h4>
-                <form class="forms-sample" method="POST" action="/submitbook">
+                <h4 class="card-title">Add Kategori</h4>
+                <form class="forms-sample" method="POST" action="/submitkategori">
                     @csrf
                     <div class="form-group">
                         <label for="exampleInputUsername1">Kategori</label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="pengarang" name="Kategori">
+                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="pengarang" name="kategori">
                     </div>
                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                     <button class="btn btn-light">Cancel</button>
@@ -24,17 +24,19 @@
                     <tr>
                         <th>No</th>
                         <th>Kategori</th>
+                        <th>Dibuat Sejak</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($books as $book)
+                    @foreach($kategori as $k)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $kategori->nama }}</td>
-                        <td>{{ $kategori->created_at->format('d M Y') }}</td>
+                        <td>{{ $k->nama_kategori }}</td>
+                        <td>{{ $k->created_at->format('d M Y') }}</td>
                         <td>
-                            @if($book->status)
-                                <form action="{{ route('book.destroy', $book->id_buku) }}" method="POST">
+                            @if($k->status)
+                                <form action="{{ route('book.destroy', $k->id_kategori) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
