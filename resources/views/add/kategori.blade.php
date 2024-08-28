@@ -36,7 +36,7 @@
                         <td>{{ $k->created_at->format('d M Y') }}</td>
                         <td>
                             @if($k->status)
-                                <form action="{{ route('book.destroy', $k->id_kategori) }}" method="POST">
+                                <form action="{{ route('kategori.destroy', $k->id_kategori) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
