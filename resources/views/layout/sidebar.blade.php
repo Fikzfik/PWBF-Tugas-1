@@ -1,24 +1,32 @@
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link" href="/home">
-                <i class="icon-grid menu-icon"></i>
-                <span class="menu-title">Dashboard</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                aria-controls="ui-basic">
-                <i class="icon-layout menu-icon"></i>
-                <span class="menu-title">Add Something</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item "> <a class="nav-link" href="/addbook">Buku</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="/addkategori">Kategori</a></li>
-                </ul>
-            </div>
-        </li>
-    </ul>
-</nav>
+<ul class="nav">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ auth()->user()->id_jenis_user == 1 ? '/dashboardadmin' : '/dashboard' }}">
+                    <i class="icon-grid menu-icon"></i>
+                    <span class="menu-title ">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                    aria-controls="ui-basic">
+                    <i class="icon-layout menu-icon"></i>
+                    <span class="menu-title">Add Something</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item "> <a class="nav-link" href="/addbook">Buku</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/addkategori">Kategori</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/addmenu">
+                    <i class="icon-grid menu-icon"></i>
+                    <span class="menu-title ">Menu User</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</ul>

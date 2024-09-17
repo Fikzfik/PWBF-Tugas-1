@@ -1,6 +1,5 @@
-@extends('app' , ['page' => 'dashboard'])
+@extends('app', ['page' => 'dashboard'])
 @section('content')
-<div class="main-panel">
     <div class="content-wrapper">
         <div class="row">
             <div class="col-md-12 grid-margin">
@@ -8,17 +7,17 @@
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                         <h3 class="font-weight-bold">Welcome John</h3>
                         <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have
-                            <span class="text-primary">3 unread alerts!</span></h6>
+                            <span class="text-primary">3 unread alerts!</span>
+                        </h6>
                     </div>
                     <div class="col-12 col-xl-4">
                         <div class="justify-content-end d-flex">
                             <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
-                                <button class="btn btn-sm btn-light bg-white dropdown-toggle"
-                                    type="button" id="dropdownMenuDate2" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="true">
+                                <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button"
+                                    id="dropdownMenuDate2" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="true">
                                     <i class="mdi mdi-calendar"></i> Today (10 Jan 2021) </button>
-                                <div class="dropdown-menu dropdown-menu-right"
-                                    aria-labelledby="dropdownMenuDate2">
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
                                     <a class="dropdown-item" href="#">January - March</a>
                                     <a class="dropdown-item" href="#">March - June</a>
                                     <a class="dropdown-item" href="#">June - August</a>
@@ -38,8 +37,7 @@
                         <div class="weather-info">
                             <div class="d-flex">
                                 <div>
-                                    <h2 class="mb-0 font-weight-normal"><i
-                                            class="icon-sun me-2"></i>31<sup>C</sup></h2>
+                                    <h2 class="mb-0 font-weight-normal"><i class="icon-sun me-2"></i>31<sup>C</sup></h2>
                                 </div>
                                 <div class="ms-2">
                                     <h4 class="location font-weight-normal">Chicago</h4>
@@ -143,14 +141,12 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card position-relative">
                     <div class="card-body">
-                        <div id="detailedReports"
-                            class="carousel slide detailed-report-carousel position-static pt-2"
+                        <div id="detailedReports" class="carousel slide detailed-report-carousel position-static pt-2"
                             data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <div class="row">
-                                        <div
-                                            class="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
+                                        <div class="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
                                             <div class="ml-xl-4 mt-3">
                                                 <p class="card-title">Detailed Reports</p>
                                                 <h1 class="text-primary">$34040</h1>
@@ -171,10 +167,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-primary"
-                                                                            role="progressbar"
-                                                                            style="width: 70%"
-                                                                            aria-valuenow="70"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 70%"
+                                                                            aria-valuenow="70" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -188,10 +182,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-warning"
-                                                                            role="progressbar"
-                                                                            style="width: 30%"
-                                                                            aria-valuenow="30"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 30%"
+                                                                            aria-valuenow="30" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -205,10 +197,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-danger"
-                                                                            role="progressbar"
-                                                                            style="width: 95%"
-                                                                            aria-valuenow="95"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 95%"
+                                                                            aria-valuenow="95" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -222,10 +212,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-info"
-                                                                            role="progressbar"
-                                                                            style="width: 60%"
-                                                                            aria-valuenow="60"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 60%"
+                                                                            aria-valuenow="60" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -239,10 +227,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-primary"
-                                                                            role="progressbar"
-                                                                            style="width: 40%"
-                                                                            aria-valuenow="40"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 40%"
+                                                                            aria-valuenow="40" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -256,10 +242,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-danger"
-                                                                            role="progressbar"
-                                                                            style="width: 75%"
-                                                                            aria-valuenow="75"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 75%"
+                                                                            aria-valuenow="75" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -284,8 +268,7 @@
                                 </div>
                                 <div class="carousel-item">
                                     <div class="row">
-                                        <div
-                                            class="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
+                                        <div class="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
                                             <div class="ml-xl-4 mt-3">
                                                 <p class="card-title">Detailed Reports</p>
                                                 <h1 class="text-primary">$34040</h1>
@@ -306,10 +289,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-primary"
-                                                                            role="progressbar"
-                                                                            style="width: 70%"
-                                                                            aria-valuenow="70"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 70%"
+                                                                            aria-valuenow="70" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -323,10 +304,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-warning"
-                                                                            role="progressbar"
-                                                                            style="width: 30%"
-                                                                            aria-valuenow="30"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 30%"
+                                                                            aria-valuenow="30" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -340,10 +319,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-danger"
-                                                                            role="progressbar"
-                                                                            style="width: 95%"
-                                                                            aria-valuenow="95"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 95%"
+                                                                            aria-valuenow="95" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -357,10 +334,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-info"
-                                                                            role="progressbar"
-                                                                            style="width: 60%"
-                                                                            aria-valuenow="60"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 60%"
+                                                                            aria-valuenow="60" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -374,10 +349,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-primary"
-                                                                            role="progressbar"
-                                                                            style="width: 40%"
-                                                                            aria-valuenow="40"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 40%"
+                                                                            aria-valuenow="40" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -391,10 +364,8 @@
                                                                 <td class="w-100 px-0">
                                                                     <div class="progress progress-md mx-4">
                                                                         <div class="progress-bar bg-danger"
-                                                                            role="progressbar"
-                                                                            style="width: 75%"
-                                                                            aria-valuenow="75"
-                                                                            aria-valuemin="0"
+                                                                            role="progressbar" style="width: 75%"
+                                                                            aria-valuenow="75" aria-valuemin="0"
                                                                             aria-valuemax="100"></div>
                                                                     </div>
                                                                 </td>
@@ -557,10 +528,8 @@
                             </ul>
                         </div>
                         <div class="add-items d-flex mb-0 mt-2">
-                            <input type="text" class="form-control todo-list-input"
-                                placeholder="Add new task">
-                            <button
-                                class="add btn btn-icon text-primary todo-list-add-btn bg-transparent"><i
+                            <input type="text" class="form-control todo-list-input" placeholder="Add new task">
+                            <button class="add btn btn-icon text-primary todo-list-add-btn bg-transparent"><i
                                     class="icon-circle-plus"></i></button>
                         </div>
                     </div>
@@ -585,56 +554,49 @@
                                     <tr>
                                         <td class="ps-0">Kentucky</td>
                                         <td>
-                                            <p class="mb-0"><span
-                                                    class="font-weight-bold me-2">65</span>(2.15%)</p>
+                                            <p class="mb-0"><span class="font-weight-bold me-2">65</span>(2.15%)</p>
                                         </td>
                                         <td class="text-muted">65</td>
                                     </tr>
                                     <tr>
                                         <td class="ps-0">Ohio</td>
                                         <td>
-                                            <p class="mb-0"><span
-                                                    class="font-weight-bold me-2">54</span>(3.25%)</p>
+                                            <p class="mb-0"><span class="font-weight-bold me-2">54</span>(3.25%)</p>
                                         </td>
                                         <td class="text-muted">51</td>
                                     </tr>
                                     <tr>
                                         <td class="ps-0">Nevada</td>
                                         <td>
-                                            <p class="mb-0"><span
-                                                    class="font-weight-bold me-2">22</span>(2.22%)</p>
+                                            <p class="mb-0"><span class="font-weight-bold me-2">22</span>(2.22%)</p>
                                         </td>
                                         <td class="text-muted">32</td>
                                     </tr>
                                     <tr>
                                         <td class="ps-0">North Carolina</td>
                                         <td>
-                                            <p class="mb-0"><span
-                                                    class="font-weight-bold me-2">46</span>(3.27%)</p>
+                                            <p class="mb-0"><span class="font-weight-bold me-2">46</span>(3.27%)</p>
                                         </td>
                                         <td class="text-muted">15</td>
                                     </tr>
                                     <tr>
                                         <td class="ps-0">Montana</td>
                                         <td>
-                                            <p class="mb-0"><span
-                                                    class="font-weight-bold me-2">17</span>(1.25%)</p>
+                                            <p class="mb-0"><span class="font-weight-bold me-2">17</span>(1.25%)</p>
                                         </td>
                                         <td class="text-muted">25</td>
                                     </tr>
                                     <tr>
                                         <td class="ps-0">Nevada</td>
                                         <td>
-                                            <p class="mb-0"><span
-                                                    class="font-weight-bold me-2">52</span>(3.11%)</p>
+                                            <p class="mb-0"><span class="font-weight-bold me-2">52</span>(3.11%)</p>
                                         </td>
                                         <td class="text-muted">71</td>
                                     </tr>
                                     <tr>
                                         <td class="ps-0 pb-0">Louisiana</td>
                                         <td class="pb-0">
-                                            <p class="mb-0"><span
-                                                    class="font-weight-bold me-2">25</span>(1.32%)</p>
+                                            <p class="mb-0"><span class="font-weight-bold me-2">25</span>(1.32%)</p>
                                         </td>
                                         <td class="pb-0">14</td>
                                     </tr>
@@ -655,9 +617,8 @@
                                         <p class="mb-0">Data 1</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="progress progress-md flex-grow-1 me-4">
-                                                <div class="progress-bar bg-inf0" role="progressbar"
-                                                    style="width: 95%" aria-valuenow="95"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-inf0" role="progressbar" style="width: 95%"
+                                                    aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             <p class="mb-0">5k</p>
                                         </div>
@@ -666,9 +627,8 @@
                                         <p class="mb-0">Data 2</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="progress progress-md flex-grow-1 me-4">
-                                                <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width: 35%" aria-valuenow="35"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: 35%"
+                                                    aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             <p class="mb-0">1k</p>
                                         </div>
@@ -677,9 +637,8 @@
                                         <p class="mb-0">Data 3</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="progress progress-md flex-grow-1 me-4">
-                                                <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width: 48%" aria-valuenow="48"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: 48%"
+                                                    aria-valuenow="48" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             <p class="mb-0">992</p>
                                         </div>
@@ -688,9 +647,8 @@
                                         <p class="mb-0">Data 4</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="progress progress-md flex-grow-1 me-4">
-                                                <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width: 25%" aria-valuenow="25"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: 25%"
+                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             <p class="mb-0">687</p>
                                         </div>
@@ -786,8 +744,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="table-responsive">
-                                    <table id="example" class="display expandable-table"
-                                        style="width:100%">
+                                    <table id="example" class="display expandable-table" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Quote#</th>
@@ -808,5 +765,4 @@
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection

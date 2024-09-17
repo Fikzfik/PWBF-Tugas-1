@@ -5,11 +5,21 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Buku; 
 use App\Models\Kategori; 
+use App\Models\jenisUser; 
 use App\Models\User; 
+use App\Models\Menu; 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AddController extends Controller
 {
+    public function setting(Request $request){
+        $roles = jenisUser::all();
+        $users = Auth::user();
+        return view('add.settings',['users' => $users,'roles' => $roles]);
+    }
+
     public function store(Request $request)
     {
         
@@ -128,4 +138,78 @@ class AddController extends Controller
     public function dashboard(){
         return view('dashboard');
     }
+    public function addMenuuser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->menus()->attach($request->menu_id);
+        return redirect()->back()->with('success', 'Menu berhasil ditambahkan ke user.');
+    }
+    public function dashboardadmin()
+    {
+        // Ambil semua pengguna yang bukan admin
+        $users = User::with('menus')->where('id_jenis_user', '!=', 1)->get();
+        
+        // Ambil semua menu yang tersedia
+        $menus = Menu::all();
+
+        // Kirim data users dan menus ke view
+        return view('dashboardadmin', ['users' => $users, 'menus' => $menus]);
+    }
+    public function updateRole(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'id_jenis_user' => 'required|integer|exists:jenis_user,id_jenis_user',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->id_jenis_user = $validatedData['id_jenis_user'];
+        $user->save();
+
+        return redirect()->back()->with('success', 'Role user berhasil diperbarui.');
+    }
+    public function usersubmit(Request $request)
+    {
+        // Debug sebelum create
+        // @dd($request->all());
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make('qwe123'),  
+            'no_hp' => $request->input('no_hp'),
+            'id_jenis_user' => $request->input('id_jenis_user'),  
+        ]);
+
+    
+        // @dd($user);
+
+        return redirect()->route('dashboardadmin')->with('success', 'User berhasil didaftarkan');
+    }
+
+    public function edituser($id)
+    {
+        $user = User::find($id);
+        return view('admin.edituser',['user'=>$user]);
+    }
+
+    public function updateuser(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->no_hp = $request->input('no_hp');
+        $user->save();
+
+        return redirect()->route('dashboardadmin')->with('success', 'User berhasil diupdate');
+    }
+
+    public function destroyuser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()->route('dashboardadmin')->with('success', 'User berhasil dihapus');
+    }
+    
 }

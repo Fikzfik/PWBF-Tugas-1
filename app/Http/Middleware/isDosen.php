@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginMiddleware
+class isDosen
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,8 @@ class LoginMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            return redirect('/login'); // Arahkan pengguna ke /home jika sudah login
+        if (\Auth::user()->id_jenis_user != 3) {
+            return redirect()->back()->with('error', 'Buku tidak ditemukan!');
         }
         return $next($request);
     }

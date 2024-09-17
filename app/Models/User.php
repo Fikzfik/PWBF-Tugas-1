@@ -16,6 +16,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'id_jenis_user',
+        'no_hp'
     ];
 
     /**
@@ -39,5 +42,24 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function isAdmin()
+    {
+        return $this->role === 'Admin';
+    }
+     // Define the relationship with JenisUser
+     public function jenisUser(): BelongsTo
+    {
+        return $this->belongsTo(JenisUser::class, 'id_jenis_user');
+    }
+
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class, 'setting_menu_user', 'id_jenis_user', 'menu_id');
+    }
+    // Define the relationship with SettingMenuUser
+    public function settingMenuUser(): HasOne
+    {
+        return $this->hasOne(SettingMenuUser::class);
     }
 }
