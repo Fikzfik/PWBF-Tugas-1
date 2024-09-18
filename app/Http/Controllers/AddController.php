@@ -140,33 +140,44 @@ class AddController extends Controller
     }
     public function addMenuuser(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+    $user = User::findOrFail($id);
 
+    // Menambahkan beberapa menu
+    if ($request->has('menu_id')) {
         $user->menus()->attach($request->menu_id);
-        return redirect()->back()->with('success', 'Menu berhasil ditambahkan ke user.');
+    }
+    
+    return redirect()->back()->with('success', 'Menu berhasil ditambahkan ke user.');
     }
     public function dashboardadmin()
-    {
-        // Ambil semua pengguna yang bukan admin
-        $users = User::with('menus')->where('id_jenis_user', '!=', 1)->get();
-        
-        // Ambil semua menu yang tersedia
-        $menus = Menu::all();
+        {
+            // Mengambil semua pengguna dengan jenis user ID yang tidak sama dengan 1
+            $users = User::where('id_jenis_user', '!=', 1)->get();
+            
+            // Mengambil semua menu
+            $menus = Menu::all();
 
-        // Kirim data users dan menus ke view
-        return view('dashboardadmin', ['users' => $users, 'menus' => $menus]);
-    }
+            return view('dashboardadmin', [
+                'users' => $users,
+                'menus' => $menus
+            ]);
+        }
+
     public function updateRole(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'id_jenis_user' => 'required|integer|exists:jenis_user,id_jenis_user',
+    // Validasi input
+          $request->validate([
+            'menu_id' => 'required|exists:menu,menu_id',
         ]);
 
-        $user = User::findOrFail($id);
-        $user->id_jenis_user = $validatedData['id_jenis_user'];
-        $user->save();
+        // Cari user berdasarkan ID
+        $user = User::find($id);
 
-        return redirect()->back()->with('success', 'Role user berhasil diperbarui.');
+        // Tambahkan menu ke user
+        $user->menus()->attach($request->menu_id);
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->back()->with('success', 'Menu berhasil ditambahkan ke user.');
     }
     public function usersubmit(Request $request)
     {

@@ -8,6 +8,18 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/addrole">
+                    <i class="icon-grid-2 menu-icon"></i>
+                    <span class="menu-title ">Add Role</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/addmenu">
+                    <i class="icon-contract menu-icon"></i>
+                    <span class="menu-title ">Add Menu</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                     aria-controls="ui-basic">
                     <i class="icon-layout menu-icon"></i>
@@ -20,12 +32,6 @@
                         <li class="nav-item"> <a class="nav-link" href="/addkategori">Kategori</a></li>
                     </ul>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/addmenu">
-                    <i class="icon-grid menu-icon"></i>
-                    <span class="menu-title ">Menu User</span>
-                </a>
             </li>
         </ul>
     </nav>

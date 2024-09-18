@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->foreign('menu_id')->references('menu_id')->on('menu')->onDelete('cascade');
             $table->foreign('id_jenis_user')->references('id_jenis_user')->on('jenis_user')->onDelete('cascade');
+            
         });
     }
 

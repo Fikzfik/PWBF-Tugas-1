@@ -3,29 +3,73 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Menu;
 
 class MenuController extends Controller
 {
-    public function addmenu($userId)
+    // Menampilkan semua menu
+    public function index()
     {
-        // Ambil data user berdasarkan ID
-        $user = User::findOrFail($userId);
-        
-        // Ambil semua menu yang tersedia
         $menus = Menu::all();
-
-        // Kirim data user dan menu ke view
-        return view('add-menu-to-user', compact('user', 'menus'));
+        return view('admin.addmenu', compact('menus'));
     }
 
-    public function update(Request $request, $userId)
+    // Form untuk membuat menu baru
+    public function create()
     {
-        // Ambil user berdasarkan ID
-        $user = User::findOrFail($userId);
+        return view('menu.create');
+    }
 
-        // Sinkronisasi menu yang dipilih dengan user
-        $user->menus()->sync($request->input('menu_ids'));
+    // Menyimpan menu baru
+    public function store(Request $request)
+    {
+        $request->validate([
+            'menu_name' => 'required',
+            'menu_link' => 'nullable',
+            'menu_icon' => 'nullable',
+            'parent_id' => 'nullable',
+        ]);
 
-        return redirect()->back()->with('success', 'Menu berhasil ditambahkan ke user.');
+        Menu::create($request->all());
+        return redirect()->route('menu.index')->with('success', 'Menu created successfully.');
+    }
+
+    // Menampilkan detail menu
+    public function show($id)
+    {
+        $menu = Menu::findOrFail($id);
+        return view('menu.show', compact('menu'));
+    }
+
+    // Form untuk edit menu
+    public function edit($id)
+    {
+        $menu = Menu::findOrFail($id);
+        return view('menu.edit', compact('menu'));
+    }
+
+    // Mengupdate menu
+    public function update(Request $request, $id)
+    {
+        $menu = Menu::findOrFail($id);
+
+        $request->validate([
+            'menu_name' => 'required',
+            'menu_link' => 'nullable',
+            'menu_icon' => 'nullable',
+            'parent_id' => 'nullable',
+        ]);
+
+        $menu->update($request->all());
+        return redirect()->route('menu.index')->with('success', 'Menu updated successfully.');
+    }
+
+    // Menghapus menu
+    public function destroy($id)
+    {
+        $menu = Menu::findOrFail($id);
+        $menu->delete();
+
+        return redirect()->route('menu.index')->with('success', 'Menu deleted successfully.');
     }
 }
