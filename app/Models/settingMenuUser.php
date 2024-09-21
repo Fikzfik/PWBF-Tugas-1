@@ -28,8 +28,16 @@ class SettingMenuUser extends Model
     }
 
     // Relasi ke Menu
-    public function menu()
+    public function menu(): BelongsTo
     {
-        return $this->belongsTo(Menu::class);
+        return $this->belongsTo(Menu::class, 'menu_id', 'menu_id');
+    }
+
+    /**
+     * Get the jenis user associated with the setting menu user.
+     */
+    public function jenisUser(): BelongsTo
+    {
+        return $this->belongsTo(JenisUser::class, 'id_jenis_user', 'id_jenis_user');
     }
 }

@@ -1,4 +1,4 @@
-@extends('app' , ['page' => 'kategori'])
+@extends('app', ['page' => 'kategori'])
 @section('content')
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
@@ -8,7 +8,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="exampleInputUsername1">Kategori</label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="pengarang" name="kategori">
+                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Kategori" name="kategori">
                     </div>
                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                     <button class="btn btn-light">Cancel</button>
@@ -16,8 +16,9 @@
             </div>
         </div>
     </div>
+
     <div class="card-body col-12">
-        <h4 class="card-title">Daftar Buku</h4>
+        <h4 class="card-title">Daftar Kategori</h4>
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -26,6 +27,7 @@
                         <th>Kategori</th>
                         <th>Dibuat Sejak</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,10 +38,18 @@
                         <td>{{ $k->created_at->format('d M Y') }}</td>
                         <td>
                             @if($k->status)
-                                <form action="{{ route('kategori.destroy', $k->id_kategori) }}" method="POST">
+                                Aktif
+                            @else
+                                Non-aktif
+                            @endif
+                        </td>
+                        <td>
+                            @if($k->status)
+                                <!-- Form untuk hapus kategori -->
+                                <form action="/kategori/{{ $k->id_kategori }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kategori ini?');">Delete</button>
                                 </form>
                             @else
                                 <span>-</span>

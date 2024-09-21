@@ -4,55 +4,84 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use App\Models\User;
-use App\Models\JenisUser;
 use App\Models\Menu;
 use App\Models\MenuLevel;
+use App\Models\JenisUser;
 
-class MenuSeeder extends Seeder
-{
-    public function run(): void
+    class MenuSeeder extends Seeder
     {
-        // Create Menu items
-            $menu1 = Menu::create([
+        public function run(): void
+        {
+            // Create Menu items
+            $dashboard = Menu::create([
                 'menu_name' => 'Dashboard',
                 'menu_link' => 'dashboard',
-                'parent_id' => null,
+                'parent_id' => null, // No parent, so it is a top-level menu
                 'menu_icon' => 'icon-grid menu-icon'
             ]);
-            
-            $menu2 = Menu::create([
-                'menu_name' => 'Tambahkan Buku',
-                'menu_link' => 'AddBook',
-                'parent_id' => null, // or set the correct parent_id if needed
-                'menu_icon' => 'icon-columns menu-icon'
+            $dashboardadmin = Menu::create([
+                'menu_name' => 'Dashboard Admin',
+                'menu_link' => 'dashboardadmin',
+                'parent_id' => null, // No parent, so it is a top-level menu
+                'menu_icon' => 'icon-grid menu-icon'
             ]);
-            
-            $menu3 = Menu::create([
-                'menu_name' => 'Tambahkan Kategori',
-                'menu_link' => 'AddKategori',
-                'parent_id' => null, // or set the correct parent_id if needed
-                'menu_icon' => 'icon-columns menu-icon'
+
+            // Create Admin Menu with submenus
+            $adminMenu = Menu::create([
+                'menu_name' => 'Admin Menu',
+                'menu_link' => '#', // No link for parent menu
+                'parent_id' => null, // No parent, so it is a top-level menu
+                'menu_icon' => 'icon-layout menu-icon'
             ]);
-            
-            $menu4 = Menu::create([
-                'menu_name' => 'Lihat Buku',
-                'menu_link' => 'ShowBook',
-                'parent_id' => null,
+
+            $addRole = Menu::create([
+                'menu_name' => 'Add Role',
+                'menu_link' => 'addrole',
+                'parent_id' => $adminMenu->menu_id, // Submenu of Admin Menu
+                'menu_icon' => 'icon-grid-2 menu-icon'
+            ]);
+
+            $addMenu = Menu::create([
+                'menu_name' => 'Add Menu',
+                'menu_link' => 'addmenu',
+                'parent_id' => $adminMenu->menu_id, // Submenu of Admin Menu
+                'menu_icon' => 'icon-contract menu-icon'
+            ]);
+
+            $showBook = Menu::create([
+                'menu_name' => 'Show Book',
+                'menu_link' => 'showbook',
+                'parent_id' => null, // No parent, so it is a top-level menu
                 'menu_icon' => 'icon-bar-graph menu-icon'
             ]);
 
+            $DosenMenu = Menu::create([
+                'menu_name' => 'Dosen Menu',
+                'menu_link' => '#', // No link for parent menu
+                'parent_id' => null, // No parent, so it is a top-level menu
+                'menu_icon' => 'icon-layout menu-icon'
+            ]);
+
+            $addbook = Menu::create([
+                'menu_name' => 'Tambahkan Buku',
+                'menu_link' => 'addbook',
+                'parent_id' => $DosenMenu->menu_id, // or set the correct parent_id if needed
+                'menu_icon' => 'icon-columns menu-icon'
+            ]);
+                
+            $addkategori = Menu::create([
+                'menu_name' => 'Tambahkan Kategori',
+                'menu_link' => 'addkategori',
+                'parent_id' => $DosenMenu->menu_id, // or set the correct parent_id if needed
+                'menu_icon' => 'icon-columns menu-icon'
+            ]);
+            
             // Attach menus to MenuLevel
             $level1 = MenuLevel::find(1);
-            $level1->menus()->save($menu1);
+            $level1->menus()->saveMany([$dashboardadmin, $adminMenu, $showBook, $dashboard, $DosenMenu]);
 
             $level2 = MenuLevel::find(2);
-            $level2->menus()->save($menu2);
-            $level2->menus()->save($menu3);
-
-            $level3 = MenuLevel::find(3);
-            $level3->menus()->save($menu4);
+            $level2->menus()->saveMany([$addRole, $addMenu,$addbook,$addkategori]);
 
             // Get Users
             $jenisuser1 = JenisUser::find(1); 
@@ -61,14 +90,26 @@ class MenuSeeder extends Seeder
 
             // Attach menus to Users via setting_menu_user
             if ($jenisuser1) {
-                $jenisuser1->menus()->attach([$menu1->menu_id, $menu2->menu_id, $menu3->menu_id, $menu4->menu_id]);
-            }
-            if ($jenisuser2) {
-                $jenisuser2->menus()->attach([$menu1->menu_id,$menu2->menu_id,$menu3->menu_id]);
+                $jenisuser1->menus()->attach([
+                    $dashboardadmin->menu_id, 
+                    $adminMenu->menu_id,
+                    $addRole->menu_id,
+                    $addMenu->menu_id
+                ]);
             }
             if ($jenisuser3) {
-                $jenisuser3->menus()->attach([$menu1->menu_id,$menu4->menu_id]);
+                $jenisuser3->menus()->attach([
+                    $dashboard->menu_id, 
+                    $DosenMenu->menu_id,
+                    $addbook->menu_id,
+                    $addkategori->menu_id,
+                ]);
             }
-            
+            if ($jenisuser2) {
+                $jenisuser2->menus()->attach([
+                    $dashboard->menu_id, 
+                    $showBook->menu_id
+                ]);
+            }
+        }
     }
-}

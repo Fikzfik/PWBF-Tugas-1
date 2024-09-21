@@ -11758,10 +11758,6 @@ textarea.is-invalid.tt-hint, .select2-container--default .select2-selection--sin
   opacity: 0;
 }
 
-.collapse:not(.show) {
-  display: none;
-}
-
 .collapsing {
   height: 0;
   overflow: hidden;

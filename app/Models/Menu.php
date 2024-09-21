@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Menu extends Model
 {
@@ -29,6 +30,10 @@ class Menu extends Model
     public function jenisUsers()
     {
         return $this->belongsToMany(JenisUser::class, 'setting_menu_user', 'menu_id', 'id_jenis_user');
+    }
+    public function settingMenuUser(): HasMany
+    {
+        return $this->hasMany(SettingMenuUser::class, 'menu_id', 'menu_id');
     }
     public function menuLevel(): BelongsTo
     {

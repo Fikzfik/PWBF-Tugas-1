@@ -15,13 +15,10 @@ class MenuLevelSeeder extends Seeder
     {
         DB::table('menu_level')->insert([
             [
-            'level'=>'Admin'
+            'level'=>'Menu'
             ],
             [
-            'level'=>'Mahasiswa'
-            ],
-            [
-            'level'=>'Dosen'
+            'level'=>'SubMenu'
             ]
         ]);
     }

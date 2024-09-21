@@ -17,6 +17,7 @@
             </form>
         </div>
     </div>
+
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card-body">
             <h4 class="card-title">Roles</h4>
@@ -39,6 +40,10 @@
                                 <td>
                                     <a href="{{ route('roles.show', $role->id_jenis_user) }}" class="btn btn-info btn-sm">View</a>
                                     <a href="{{ route('roles.edit', $role->id_jenis_user) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    
+                                    <!-- Tombol Tambahkan Menu Role -->
+                                    <a href="{{ route('roles.addmenu', $role->id_jenis_user) }}" class="btn btn-primary btn-sm">Tambahkan Menu Role</a>
+
                                     <form action="{{ route('roles.destroy', $role->id_jenis_user) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')

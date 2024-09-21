@@ -4,13 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\JenisUser;
+use App\Models\User;
+use App\Models\Menu;
 
 class RoleController extends Controller
 {
     public function index()
     {
+        $id_jenis_user = auth()->user()->id_jenis_user;
+
+        $menususer = Menu::whereHas('jenisUsers', function ($query) use ($id_jenis_user) {
+        $query->where('setting_menu_user.id_jenis_user', $id_jenis_user);
+        })->whereNull('parent_id')->get();
+
+        $submenus = Menu::whereHas('jenisUsers', function ($query) use ($id_jenis_user) {
+        $query->where('setting_menu_user.id_jenis_user', $id_jenis_user);
+        })->whereNotNull('parent_id')->get();
+
+        $users = User::where('id_jenis_user', '!=', 1)->get();
+
         $roles = JenisUser::all();
-        return view('admin.addrole', ['roles' => $roles]);
+        return view('admin.addrole', [
+            'users' => $users,
+            'menususer' => $menususer,
+            'submenus' => $submenus,
+            'roles' => $roles
+        ]);
+      
     }
 
     public function store(Request $request)
@@ -31,8 +51,26 @@ class RoleController extends Controller
 
     public function edit($id)
     {
-        $role = JenisUser::findOrFail($id);
-        return view('admin.updaterole', ['role' => $role]);
+        $id_jenis_user = auth()->user()->id_jenis_user;
+
+    $menususer = Menu::whereHas('jenisUsers', function ($query) use ($id_jenis_user) {
+        $query->where('setting_menu_user.id_jenis_user', $id_jenis_user);
+    })->whereNull('parent_id')->get();
+
+    $submenus = Menu::whereHas('jenisUsers', function ($query) use ($id_jenis_user) {
+        $query->where('setting_menu_user.id_jenis_user', $id_jenis_user);
+    })->whereNotNull('parent_id')->get();
+
+    $users = User::where('id_jenis_user', '!=', 1)->get();
+    $role = JenisUser::findOrFail($id);
+
+    return view('admin.updaterole', [
+        'users' => $users,
+        'menususer' => $menususer,
+        'submenus' => $submenus,
+        'role' => $role
+    ]);
+       
     }
 
     public function update(Request $request, $id)
@@ -58,11 +96,27 @@ class RoleController extends Controller
     }
     public function show($id)
     {
+        $id_jenis_user = auth()->user()->id_jenis_user;
+        $menususer = Menu::whereHas('jenisUsers', function ($query) use ($id_jenis_user) {
+            $query->where('setting_menu_user.id_jenis_user', $id_jenis_user);
+        })->whereNull('parent_id')->get();
+
+        $submenus = Menu::whereHas('jenisUsers', function ($query) use ($id_jenis_user) {
+            $query->where('setting_menu_user.id_jenis_user', $id_jenis_user);
+        })->whereNotNull('parent_id')->get();
+
+        $users = User::where('id_jenis_user', '!=', 1)->get();
+
         $role = JenisUser::findOrFail($id);
 
         // Misalkan ada relasi dengan model lain, seperti Menu
         $menus = $role->menus; // Jika Anda memiliki relasi dengan menu
-
-        return view('admin.showrole', ['role'=>$role,'menus'=> $menus]);
+        return view('admin.showrole', [
+            'users' => $users,
+            'menususer' => $menususer,
+            'submenus' => $submenus,
+            'role'=>$role,
+            'menus'=> $menus
+        ]);
     }
 }
