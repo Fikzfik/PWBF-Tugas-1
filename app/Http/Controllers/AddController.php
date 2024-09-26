@@ -207,24 +207,22 @@ class AddController extends Controller
     {
         $id_jenis_user = auth()->user()->id_jenis_user;
 
-        $menususer = Menu::whereHas('jenisUsers', function ($query) use ($id_jenis_user) {
-            $query->where('setting_menu_user.id_jenis_user', $id_jenis_user);
-        })
+        $menususer = auth()->user()->jenisUser->menus()
             ->whereNull('parent_id')
             ->get();
-
-        $submenus = Menu::whereHas('jenisUsers', function ($query) use ($id_jenis_user) {
-            $query->where('setting_menu_user.id_jenis_user', $id_jenis_user);
-        })
+        // @dd($id_jenis_user);
+        $submenus = auth()->user()->jenisUser->menus()
             ->whereNotNull('parent_id')
             ->get();
 
         $users = User::where('id_jenis_user', '!=', 1)->get();
+        $jenis_user = JenisUser::all();
 
         return view('dashboardadmin', [
             'users' => $users,
             'menususer' => $menususer,
             'submenus' => $submenus,
+            'jenis_user' => $jenis_user,
         ]);
     }
 
@@ -321,17 +319,20 @@ class AddController extends Controller
 
         $users = User::where('id_jenis_user', '!=', 1)->get();
 
+        $jenisuser = JenisUser::all();
         $user = User::find($id);
         return view('admin.edituser', [
             'users' => $users,
             'menususer' => $menususer,
             'submenus' => $submenus,
             'user' => $user,
+            'jenis_user' => $jenisuser,
         ]);
     }
 
     public function updateuser(Request $request, $id)
     {
+        // @dd($request);
         $user = User::find($id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');

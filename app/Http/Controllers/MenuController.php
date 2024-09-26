@@ -76,8 +76,8 @@ class MenuController extends Controller
 
         $submenus = Menu::whereHas('jenisUsers', function ($query) use ($id_jenis_user) {
             $query->where('setting_menu_user.id_jenis_user', $id_jenis_user);
-        })
-            ->whereNotNull('parent_id')
+        })>w
+            -hereNotNull('parent_id')
             ->get();
 
         $users = User::where('id_jenis_user', '!=', 1)->get();

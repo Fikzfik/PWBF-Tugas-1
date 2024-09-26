@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MhsController;
+use App\Http\Controllers\MessageController;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'isAdmin'], function () {
@@ -55,6 +56,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [AddController::class, 'dashboard']);
     Route::get('/dashboard', [AddController::class, 'dashboard']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/messages', [MessageController::class, 'message']);
+    Route::get('/messages/create', [MessageController::class, 'create'])->name('messages.create');
+    // Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+    Route::get('/messages/{id}', [MessageController::class, 'show'])->name('messages.show');
 });
 
 Route::group(['middleware' => 'guest'], function () {

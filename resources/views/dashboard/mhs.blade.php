@@ -11,10 +11,13 @@
         </div>
     </div>
 
-    <div class="col-md-12 grid-margin stretch-card">
+    <div class="card" style="width: 18rem;">
+        <img src="/" class="card-img-top" alt="...">
         <div class="card-body">
-            <h4 class="card-title">Jadwal Kuliah</h4>
-            <!-- Tampilkan jadwal kuliah di sini -->
+            <h5 class="card-title">Kelas</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
 

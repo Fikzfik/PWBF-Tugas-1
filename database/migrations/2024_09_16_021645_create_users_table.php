@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('id_jenis_user')->nullable();
             $table->string('no_hp')->nullable();
             $table->string('pin')->nullable();
             $table->rememberToken();
+            $table->unsignedBigInteger('id_jenis_user')->nullable();
             $table->timestamps();
 
             $table->foreign('id_jenis_user')->references('id_jenis_user')->on('jenis_user')->onDelete('cascade');

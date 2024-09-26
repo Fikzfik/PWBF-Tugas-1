@@ -22,15 +22,16 @@
                     <label for="no_hp">No. HP</label>
                     <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="Nomor HP" required>
                 </div>
-
                 <div class="form-group">
                     <label for="id_jenis_user">Jenis User</label>
                     <select class="form-select" id="id_jenis_user" name="id_jenis_user" required>
-                        <option value="1">Admin</option>
-                        <option value="2">Mahasiswa</option>
-                        <option value="3">Dosen</option>
+                        <option value="">Pilih Jenis User</option>
+                        @foreach($jenis_user as $jenis)
+                            <option value="{{ $jenis->id_jenis_user }}">{{ $jenis->nama_jenis_user }}</option>
+                        @endforeach
                     </select>
                 </div>
+                
 
                 <button type="submit" class="btn btn-primary">Daftarkan User</button>
             </form>
@@ -65,6 +66,10 @@
                                         Mahasiswa
                                     @elseif($user->id_jenis_user == 3)
                                         Dosen
+                                    @elseif($user->id_jenis_user == 4)
+                                        staff
+                                    @elseif($user->id_jenis_user == 5)
+                                        baru
                                     @else
                                         Admin
                                     @endif

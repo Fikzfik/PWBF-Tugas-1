@@ -18,7 +18,7 @@ use App\Models\JenisUser;
                 'menu_link' => 'dashboard',
                 'parent_id' => null, // No parent, so it is a top-level menu
                 'menu_icon' => 'icon-grid menu-icon'
-            ]);
+            ]); 
             $dashboardadmin = Menu::create([
                 'menu_name' => 'Dashboard Admin',
                 'menu_link' => 'dashboardadmin',
@@ -75,10 +75,16 @@ use App\Models\JenisUser;
                 'parent_id' => $DosenMenu->menu_id, // or set the correct parent_id if needed
                 'menu_icon' => 'icon-columns menu-icon'
             ]);
+            $messages = Menu::create([
+                'menu_name' => 'Messages',
+                'menu_link' => 'messages',
+                'parent_id' => null, // or set the correct parent_id if needed
+                'menu_icon' => 'mdi mdi-message-processing'
+            ]);
             
             // Attach menus to MenuLevel
             $level1 = MenuLevel::find(1);
-            $level1->menus()->saveMany([$dashboardadmin, $adminMenu, $showBook, $dashboard, $DosenMenu]);
+            $level1->menus()->saveMany([$dashboardadmin, $adminMenu, $showBook, $dashboard, $DosenMenu,$messages]);
 
             $level2 = MenuLevel::find(2);
             $level2->menus()->saveMany([$addRole, $addMenu,$addbook,$addkategori]);
@@ -94,7 +100,8 @@ use App\Models\JenisUser;
                     $dashboardadmin->menu_id, 
                     $adminMenu->menu_id,
                     $addRole->menu_id,
-                    $addMenu->menu_id
+                    $addMenu->menu_id,
+                    $messages->menu_id
                 ]);
             }
             if ($jenisuser3) {
@@ -103,12 +110,14 @@ use App\Models\JenisUser;
                     $DosenMenu->menu_id,
                     $addbook->menu_id,
                     $addkategori->menu_id,
+                    $messages->menu_id,
                 ]);
             }
             if ($jenisuser2) {
                 $jenisuser2->menus()->attach([
                     $dashboard->menu_id, 
-                    $showBook->menu_id
+                    $showBook->menu_id,
+                    $messages->menu_id,
                 ]);
             }
         }

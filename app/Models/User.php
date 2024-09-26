@@ -43,4 +43,7 @@ class User extends Authenticatable
     {
         return $this->role === 'Admin';
     }
+    // public function massage(){
+    //     return
+    // }
 }

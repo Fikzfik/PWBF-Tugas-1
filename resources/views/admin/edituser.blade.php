@@ -29,9 +29,10 @@
                 <div class="form-group">
                     <label for="id_jenis_user">Jenis User</label>
                     <select class="form-select" id="id_jenis_user" name="id_jenis_user" required>
-                        <option value="1" {{ $user->id_jenis_user == 1 ? 'selected' : '' }}>Admin</option>
-                        <option value="2" {{ $user->id_jenis_user == 2 ? 'selected' : '' }}>Mahasiswa</option>
-                        <option value="3" {{ $user->id_jenis_user == 3 ? 'selected' : '' }}>Dosen</option>
+                        <option value="">Pilih Jenis User</option>
+                        @foreach($jenis_user as $jenis)
+                            <option value="{{ $jenis->id_jenis_user }}">{{ $jenis->nama_jenis_user }}</option>
+                        @endforeach
                     </select>
                 </div>
 

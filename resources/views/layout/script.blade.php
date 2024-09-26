@@ -17,6 +17,31 @@
 <script src="{{ asset('assets/js/settings.js') }}"></script>
 <script src="{{ asset('assets/js/todolist.js') }}"></script>
 
+<!-- Kode untuk inisialisasi Bootstrap collapse sidebar -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var collapses = document.querySelectorAll('.collapse');
+
+    collapses.forEach(function (collapse) {
+        var bsCollapse = new bootstrap.Collapse(collapse, {
+            toggle: false
+        });
+    });
+
+    // If you want to handle clicks manually
+    document.querySelectorAll('.nav-link[data-bs-toggle="collapse"]').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent default behavior
+            var targetId = el.getAttribute('href');
+            var targetElement = document.querySelector(targetId);
+            var bsCollapse = new bootstrap.Collapse(targetElement);
+            bsCollapse.toggle();
+        });
+    });
+});
+
+</script>
+
 <!-- Custom JS -->
 <script src="{{ asset('assets/js/jquery.cookie.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/js/dashboard.js') }}"></script>
