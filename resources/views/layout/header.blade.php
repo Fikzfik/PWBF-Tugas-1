@@ -20,6 +20,16 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
-    <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css') }}"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/maps/baru.css') }}"> --}}
-
+    <style>
+        .form-actions {
+            position: sticky;
+            bottom: 0;
+            background-color: white;
+            padding: 10px 0;
+            text-align: right;
+        }
+    </style>

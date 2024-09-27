@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MhsController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MessageController;
 
 Route::group(['middleware' => 'auth'], function () {
@@ -56,10 +57,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [AddController::class, 'dashboard']);
     Route::get('/dashboard', [AddController::class, 'dashboard']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/messages', [MessageController::class, 'message']);
-    Route::get('/messages/create', [MessageController::class, 'create'])->name('messages.create');
-    // Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
-    Route::get('/messages/{id}', [MessageController::class, 'show'])->name('messages.show');
+    Route::get('/messages', [MessageController::class, 'message'])->name('mailbox.index');
+    Route::get('/sendMessages', [MessageController::class, 'sendmessage'])->name('message.compose');
+    Route::post('/sendMessages', [MessageController::class, 'store'])->name('message.store');
+    Route::get('/compose', [MessageController::class, 'compose'])->name('mailbox.compose');
+    Route::post('/compose', [MessageController::class, 'stores'])->name('mailbox.store');
+    Route::get('/massageview/{id}', [MessageController::class, 'show'])->name('mailbox.view');
+    Route::delete('/massagedelete/{id}', [MessageController::class, 'destroy'])->name('mailbox.delete');
 });
 
 Route::group(['middleware' => 'guest'], function () {

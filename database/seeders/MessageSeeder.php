@@ -13,7 +13,6 @@ class MessageSeeder extends Seeder
 {
     public function run(): void
     {
-        // Buat kategori massage
         $kategori1 = MessageKategori::create([
             'description' => 'Kategori Umum',
         ]);
@@ -21,17 +20,9 @@ class MessageSeeder extends Seeder
         $kategori2 = MessageKategori::create([
             'description' => 'Kategori Penting',
         ]);
+        $users1 = User::find(1);
+        $users2 = User::find(2);
 
-        // Ambil user yang ada
-        $users = User::all();
-
-        // Cek apakah ada user untuk menghindari error
-        if ($users->isEmpty()) {
-            $this->command->info('Tidak ada user untuk menghubungkan pesan.');
-            return;
-        }
-
-        // Buat massage dan hubungkan dengan user dan kategori
         $massage1 = Message::create([
             'massage_reference' => 'REF001',
             'subject' => 'Pesan Pertama',
@@ -39,7 +30,7 @@ class MessageSeeder extends Seeder
             'massage_text' => 'Isi pesan lengkap pertama.',
             'massage_status' => 'dikirim',
             'no_mk' => $kategori1->no_mk, // Hubungkan dengan kategori
-            'user_id' => $users->random()->user_id, // Pilih random user
+            'user_id' => $users1->user_id, // Pilih random user
         ]);
 
         $massage2 = Message::create([
@@ -49,19 +40,19 @@ class MessageSeeder extends Seeder
             'massage_text' => 'Isi pesan lengkap kedua.',
             'massage_status' => 'diterima',
             'no_mk' => $kategori2->no_mk,
-            'user_id' => $users->random()->user_id,
+            'user_id' => $users2->user_id,
         ]);
 
         // Buat massage_to
         MessageTo::create([
-            'to' => 'recipient@example.com',
-            'cc' => 'cc@example.com',
-            'massage_id' => $massage1->massage_id,
+            'to' => $users1->email,
+            'cc' => $users2->email,
+            'massage_id' => $massage1->massage,
         ]);
 
         MessageTo::create([
-            'to' => 'recipient2@example.com',
-            'cc' => 'cc2@example.com',
+            'to' => $users2->email,
+            'cc' => $users1->email,
             'massage_id' => $massage2->massage_id,
         ]);
 
