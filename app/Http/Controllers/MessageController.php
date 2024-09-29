@@ -23,21 +23,39 @@ class MessageController extends Controller
     {
         $id_jenis_user = auth()->user()->id_jenis_user;
 
+        // Ambil menus dan submenus untuk pengguna
         $menususer = auth()->user()->jenisUser->menus()->whereNull('parent_id')->get();
-        // @dd($id_jenis_user);
         $submenus = auth()->user()->jenisUser->menus()->whereNotNull('parent_id')->get();
 
+        // Ambil semua pengguna yang bukan jenis user dengan id 1
         $users = User::where('id_jenis_user', '!=', 1)->get();
+
+        // Ambil semua pesan untuk pengguna saat ini
         $messages = Message::where('user_id', Auth::id())->get();
+
+        // Ambil pesan yang belum dibaca
+        $unreadMessages = Message::where('massage_status', 'belum dibaca')
+            ->where('user_id', Auth::id()) // Ganti dengan ID pengguna yang sesuai
+            ->get();
 
         return view('massage.massage', [
             'users' => $users,
             'menususer' => $menususer,
             'submenus' => $submenus,
             'messages' => $messages,
+            'unreadMessages' => $unreadMessages, // Tambahkan unreadMessages ke view
         ]);
     }
-    public function sendmessage()
+
+    public function getUnreadMessages(Request $request)
+    {
+        // Ambil pesan yang belum dibaca untuk pengguna yang terautentikasi
+        $unreadMessages = Message::where('massage_status', 'belum dibaca')->where('user_id', Auth::id())->get();
+
+        return response()->json($unreadMessages);
+    }
+
+    public function sendmessage(Request $request)
     {
         $id_jenis_user = auth()->user()->id_jenis_user;
 
@@ -49,12 +67,31 @@ class MessageController extends Controller
         $messages = Message::where('user_id', Auth::id())->get();
         $categories = MessageKategori::all();
 
+        $to = $request->query('to', '');
+        $subject = $request->query('subject', '');
         return view('massage.sendmessage', [
             'users' => $users,
             'menususer' => $menususer,
             'submenus' => $submenus,
             'messages' => $messages,
             'categories' => $categories,
+            'to' => $to,
+            'subject' => $subject,
+        ]);
+    }
+    // MessageController.php
+    public function searchMessages(Request $request)
+    {
+        // Ambil keyword dari input search
+        $search = $request->query('query');
+
+        // Ambil data pesan yang cocok dengan subject
+        $messages = Message::where('user_id', Auth::id())
+            ->where('subject', 'LIKE', "%{$search}%")
+            ->get();
+
+        return response()->json([
+            'messages' => $messages,
         ]);
     }
 
@@ -65,7 +102,7 @@ class MessageController extends Controller
             'subject' => 'required|string|max:255',
             'message_text' => 'required|string',
             'category' => 'required',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048', // Validasi file jika ada
+            // 'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048', // Validasi file jika ada
         ]);
 
         // Buat pesan baru
@@ -100,7 +137,7 @@ class MessageController extends Controller
         if ($request->hasFile('file')) {
             $filePath = $request->file('file')->store('documents', 'public');
 
-            $dokumen = new MassageDokumen();
+            $dokumen = new MessageDokumen();
             $dokumen->file = $filePath;
             $dokumen->description = 'Attached file';
             $dokumen->massage_id = $massage->massage_id;
@@ -138,23 +175,32 @@ class MessageController extends Controller
         $id_jenis_user = auth()->user()->id_jenis_user;
 
         $menususer = auth()->user()->jenisUser->menus()->whereNull('parent_id')->get();
-        // @dd($id_jenis_user);
         $submenus = auth()->user()->jenisUser->menus()->whereNotNull('parent_id')->get();
 
         $users = User::where('id_jenis_user', '!=', 1)->get();
         $messages = Message::find($id);
-        // @dd($messages);
-        $messages->massage_status = 'Dibaca';
-        $messages->save();
-        
+
         if (!$messages) {
             return redirect()->route('mailbox.index')->with('error', 'Message not found.');
         }
+
+        // Ubah status pesan menjadi "Dibaca"
+        $messages->massage_status = 'Dibaca';
+        // @dd($dokumen, $messages->massage_id);
+        $messages->save();
+        
+        $dokumen = MessageDokumen::where('massage_id', $messages->massage_id)->get(); // Menggunakan get() untuk mengambil koleksi
+        // Ambil dokumen yang terkait dengan message_id
+
+        // Debug untuk memastikan dokumen ditemukan
+
+        // Kirim data ke view
         return view('massage.messageview', [
             'users' => $users,
             'menususer' => $menususer,
             'submenus' => $submenus,
             'message' => $messages,
+            'dokumen' => $dokumen, // Mengirim dokumen ke view
         ]);
     }
     public function destroy($id)

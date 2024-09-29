@@ -16,7 +16,7 @@ class MessageKategori extends Model
         'description',
     ];
 
-    public function massages()
+    public function message()
     {
         return $this->hasMany(Massage::class, 'no_mk');
     }

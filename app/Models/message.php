@@ -24,16 +24,16 @@ class Message extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(MassageKategori::class, 'no_mk');
+        return $this->belongsTo(MessageKategori::class, 'no_mk');
     }
 
     public function dokumen()
     {
-        return $this->hasMany(MassageDokumen::class, 'massage_id');
+        return $this->hasMany(MessageDokumen::class, 'massage_id');
     }
 
     public function to()
     {
-        return $this->hasMany(MassageTo::class, 'massage_id');
+        return $this->hasMany(MessageTo::class, 'massage_id');
     }
 }

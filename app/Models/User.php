@@ -46,4 +46,28 @@ class User extends Authenticatable
     // public function massage(){
     //     return
     // }
+    public function postings()
+    {
+        return $this->hasMany(Posting::class, 'sender', 'user_id');
+    }
+
+    /**
+     * Mendefinisikan relasi satu ke banyak dengan model PostingLike.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function postingLikes()
+    {
+        return $this->hasMany(PostingLike::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Mendefinisikan relasi satu ke banyak dengan model PostingKomentar.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function postingComments()
+    {
+        return $this->hasMany(PostingKomen::class, 'user_id', 'user_id');
+    }
 }

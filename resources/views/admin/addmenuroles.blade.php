@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>Update Menu Role : {{ $role->nama_jenis_user }}</h2>
+                <h2>Update Menu Role: {{ $role->nama_jenis_user }}</h2>
 
                 <!-- Form untuk update menu role -->
                 <form action="{{ route('roles.savemenu', $role->id_jenis_user) }}" method="post">
@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <h4>Menu Yang Belum Dimiliki:</h4>
                         @foreach($notmenuroles as $menu)
-                            <div class="custom-control custom-checkbox">
+                            <div class="custom-control custom-checkbox {{ $menu->is_submenu ? 'submenu' : '' }}">
                                 <input type="checkbox" 
                                        class="custom-control-input" 
                                        id="menu_{{ $menu->menu_id }}" 
@@ -24,6 +24,22 @@
                                     {{ $menu->menu_name }}
                                 </label>
                             </div>
+                            @if($menu->submenus)
+                                <div class="ml-4"> <!-- Margin left untuk sub-menu -->
+                                    @foreach($menu->submenus as $submenu)
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" 
+                                                   class="custom-control-input" 
+                                                   id="submenu_{{ $submenu->menu_id }}" 
+                                                   name="menu_id[]" 
+                                                   value="{{ $submenu->menu_id }}">
+                                            <label class="custom-control-label" for="submenu_{{ $submenu->menu_id }}">
+                                                {{ $submenu->menu_name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         @endforeach
                     </div>
 
@@ -31,7 +47,7 @@
                     <div class="form-group mt-4">
                         <h4>Menu yang dimiliki:</h4>
                         @foreach($menuroles as $menu)
-                            <div class="custom-control custom-checkbox">
+                            <div class="custom-control custom-checkbox {{ $menu->is_submenu ? 'submenu' : '' }}">
                                 <input type="checkbox" 
                                        class="custom-control-input" 
                                        id="menu_{{ $menu->menu_id }}" 
@@ -42,6 +58,23 @@
                                     {{ $menu->menu_name }}
                                 </label>
                             </div>
+                            @if($menu->submenus)
+                                <div class="ml-4"> <!-- Margin left untuk sub-menu -->
+                                    @foreach($menu->submenus as $submenu)
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" 
+                                                   class="custom-control-input" 
+                                                   id="submenu_{{ $submenu->menu_id }}" 
+                                                   name="menu_id[]" 
+                                                   value="{{ $submenu->menu_id }}" 
+                                                   checked>
+                                            <label class="custom-control-label" for="submenu_{{ $submenu->menu_id }}">
+                                                {{ $submenu->menu_name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         @endforeach
                     </div>
 
@@ -59,6 +92,9 @@
         .custom-control-label {
             font-size: 1.1rem;
             font-weight: 500;
+        }
+        .submenu {
+            margin-left: 20px; /* Indent for submenus */
         }
     </style>
 @endsection

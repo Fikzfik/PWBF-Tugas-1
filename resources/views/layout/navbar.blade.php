@@ -24,11 +24,10 @@
             </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-            <!-- Notification Button with Badge -->
+            <!-- Button to trigger SweetAlert modal -->
             <li class="nav-item">
-                <a class="nav-link" href="#" onclick="showMessages()">
-                    <i class="icon-bell mx-0"></i> Notification 
-                    <span id="notificationCount" class="badge badge-danger" style="display: none;">0</span>
+                <a class="nav-link" href="#" onclick="showMessageModal()">
+                    <i class="icon-bell mx-0"></i> Notification
                 </a>
             </li>
             <!-- Profile dropdown remains the same -->
@@ -61,51 +60,78 @@
             <span class="icon-menu"></span>
         </button>
     </div>
-
-    <!-- SweetAlert Modal Script -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        // Example array of messages (you can replace this with an AJAX call to your server)
-        let messages = [
-            { id: 1, text: 'Pesan baru dari User A', read: false },
-            { id: 2, text: 'Pesan baru dari User B', read: false }
-        ];
-
-        // Update the notification count
-        function updateNotificationCount() {
-            const unreadMessages = messages.filter(message => !message.read);
-            const countElement = document.getElementById('notificationCount');
-
-            if (unreadMessages.length > 0) {
-                countElement.innerText = unreadMessages.length;
-                countElement.style.display = 'inline'; // Show badge
-            } else {
-                countElement.style.display = 'none'; // Hide badge
-            }
-        }
-
-        // Show messages in a modal
-        function showMessages() {
-            let messageList = '';
-            messages.forEach(message => {
-                messageList += `<div class="message-item" style="padding: 10px; border-bottom: 1px solid #e0e0e0;">${message.text}</div>`;
-            });
-
-            Swal.fire({
-                title: 'Messages',
-                html: messageList,
-                showCloseButton: true,
-                focusConfirm: false,
-            });
-
-            // Mark messages as read
-            messages.forEach(message => message.read = true);
-            updateNotificationCount(); // Update the badge count
-        }
-
-        // Initialize notification count on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateNotificationCount();
-        });
-    </script>
 </nav>
+<!-- SweetAlert Modal Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function showMessageModal() {
+        // Mengambil pesan yang belum dibaca dari server
+        $.ajax({
+            url: '{{ route('unread.messages') }}', // Ganti dengan route yang sesuai
+            method: 'GET',
+            success: function(response) {
+                // Jika tidak ada pesan yang belum dibaca
+                if (response.length === 0) {
+                    Swal.fire({
+                        position: "top-end",
+                        title: "Message",
+                        text: "Tidak ada pesan baru.",
+                        showClass: {
+                            popup: `
+                                animate__animated
+                                animate__fadeInUp
+                                animate__faster
+                            `
+                        },
+                        hideClass: {
+                            popup: `
+                                animate__animated
+                                animate__fadeOutDown
+                                animate__faster
+                            `
+                        },
+                        confirmButtonText: 'Tutup' // Menambahkan tombol tutup
+                    });
+                    return; // Keluar dari fungsi
+                }
+
+                // Mengumpulkan pesan dalam format HTML
+                let messageList = response.map(message => 
+                    `<div style="padding: 10px; border-bottom: 1px solid #e0e0e0;">${message.text}</div>`
+                ).join('');
+
+                // Tampilkan modal dengan pesan yang belum dibaca
+                Swal.fire({
+                    position: "top-end",
+                    title: "Pesan Baru",
+                    html: messageList,
+                    showClass: {
+                        popup: `
+                            animate__animated
+                            animate__fadeInUp
+                            animate__faster
+                        `
+                    },
+                    hideClass: {
+                        popup: `
+                            animate__animated
+                            animate__fadeOutDown
+                            animate__faster
+                        `
+                    },
+                    confirmButtonText: 'Tutup' // Menambahkan tombol tutup
+                });
+            },
+            error: function(xhr) {
+                console.error('Error fetching messages:', xhr);
+                Swal.fire({
+                    position: "top-end",
+                    title: "Error",
+                    text: "Terjadi kesalahan saat mengambil pesan.",
+                    icon: 'error',
+                    confirmButtonText: 'Tutup'
+                });
+            }
+        });
+    }
+</script>

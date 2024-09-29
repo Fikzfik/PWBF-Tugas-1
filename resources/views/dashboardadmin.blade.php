@@ -61,18 +61,7 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->no_hp }}</td>
-                                <td>
-                                    @if($user->id_jenis_user == 2)
-                                        Mahasiswa
-                                    @elseif($user->id_jenis_user == 3)
-                                        Dosen
-                                    @elseif($user->id_jenis_user == 4)
-                                        staff
-                                    @elseif($user->id_jenis_user == 5)
-                                        baru
-                                    @else
-                                        Admin
-                                    @endif
+                                <td>{{ $user->jenisUser->nama_jenis_user }}
                                 </td>
                                 <td>
                                     <a href="/edituser/{{ $user->user_id }}" class="btn btn-warning btn-sm">Edit</a>

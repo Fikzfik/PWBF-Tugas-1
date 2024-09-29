@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label for="to" class="form-label">Kepada</label>
                     <input type="text" class="form-control" id="to" name="to" placeholder="Masukkan penerima"
-                        value="{{ old('to') }}" required>
+                        value="{{ $to }}" required>
                 </div>
 
                 <!-- Input Kategori -->
@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <label for="subject" class="form-label">Subjek</label>
                     <input type="text" class="form-control" id="subject" name="subject"
-                        placeholder="Masukkan subjek pesan" value="{{ old('subject') }}" required>
+                        placeholder="Masukkan subjek pesan" value="" required>
                 </div>
 
                 <!-- Input Pesan -->

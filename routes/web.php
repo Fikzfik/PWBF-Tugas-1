@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SocialFeedController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddController;
 use App\Http\Controllers\AuthController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MhsController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\EarthquakeController;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'isAdmin'], function () {
@@ -57,6 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [AddController::class, 'dashboard']);
     Route::get('/dashboard', [AddController::class, 'dashboard']);
     Route::post('/logout', [AuthController::class, 'logout']);
+
     Route::get('/messages', [MessageController::class, 'message'])->name('mailbox.index');
     Route::get('/sendMessages', [MessageController::class, 'sendmessage'])->name('message.compose');
     Route::post('/sendMessages', [MessageController::class, 'store'])->name('message.store');
@@ -64,6 +67,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/compose', [MessageController::class, 'stores'])->name('mailbox.store');
     Route::get('/massageview/{id}', [MessageController::class, 'show'])->name('mailbox.view');
     Route::delete('/massagedelete/{id}', [MessageController::class, 'destroy'])->name('mailbox.delete');
+    Route::get('/unread-messages', [MessageController::class, 'getUnreadMessages'])->name('unread.messages');
+    Route::get('/search-messages', [MessageController::class, 'searchMessages'])->name('messages.search');
+    Route::get('/gempa', [EarthquakeController::class, 'index'])->name('earthquakes.index');
+
+    Route::get('/social-feed', [SocialFeedController::class, 'index'])->name('social-feed.index');
+    Route::post('/social-feed/store', [SocialFeedController::class, 'store'])->name('social-feed.store');
+    Route::post('/social-feed/{id}/like', [SocialFeedController::class, 'like'])->name('social-feed.like');
+    Route::post('/social-feed/{id}/comment', [SocialFeedController::class, 'comment'])->name('social-feed.comment');
+    Route::delete('/social-feed/comment/{id}', [SocialFeedController::class, 'deleteComment'])->name('social-feed.comment.delete');
 });
 
 Route::group(['middleware' => 'guest'], function () {

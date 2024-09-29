@@ -89,10 +89,23 @@ use App\Models\JenisUser;
                 'parent_id' => null, // or set the correct parent_id if needed
                 'menu_icon' => 'mdi mdi-message-processing'
             ]);
+
+            $earthquake = Menu::create([
+                'menu_name' => 'Info Gempa',
+                'menu_link' => 'gempa',
+                'parent_id' => null, // or set the correct parent_id if needed
+                'menu_icon' => 'mdi mdi-map-marker-circle'
+            ]);
+            $sosmed = Menu::create([
+                'menu_name' => 'Social Feeds',
+                'menu_link' => 'social-feed',
+                'parent_id' => null, // or set the correct parent_id if needed
+                'menu_icon' => 'mdi mdi-map-marker-circle'
+            ]);
             
             // Attach menus to MenuLevel
             $level1 = MenuLevel::find(1);
-            $level1->menus()->saveMany([$dashboardadmin, $adminMenu, $showBook, $dashboard, $DosenMenu,$messages,$sendmessage]);
+            $level1->menus()->saveMany([$dashboardadmin, $adminMenu, $showBook, $dashboard, $DosenMenu,$messages,$sendmessage,$earthquake,$sosmed]);
 
             $level2 = MenuLevel::find(2);
             $level2->menus()->saveMany([$addRole, $addMenu,$addbook,$addkategori]);
@@ -110,7 +123,9 @@ use App\Models\JenisUser;
                     $addRole->menu_id,
                     $addMenu->menu_id,
                     $messages->menu_id,
-                    $sendmessage->menu_id
+                    $sendmessage->menu_id,
+                    $earthquake->menu_id,
+                    $sosmed->menu_id
                 ]);
             }
             if ($jenisuser3) {
@@ -120,7 +135,9 @@ use App\Models\JenisUser;
                     $addbook->menu_id,
                     $addkategori->menu_id,
                     $messages->menu_id,
-                    $sendmessage->menu_id
+                    $sendmessage->menu_id,
+                    $earthquake->menu_id,
+                    $sosmed->menu_id
                 ]);
             }
             if ($jenisuser2) {
@@ -128,7 +145,9 @@ use App\Models\JenisUser;
                     $dashboard->menu_id, 
                     $showBook->menu_id,
                     $messages->menu_id,
-                    $sendmessage->menu_id
+                    $sendmessage->menu_id,
+                    $earthquake->menu_id,
+                    $sosmed->menu_id    
                 ]);
             }
         }

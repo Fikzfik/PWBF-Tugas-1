@@ -18,7 +18,7 @@ class MessageDokumen extends Model
         'massage_id',
     ];
 
-    public function massage()
+    public function message()
     {
         return $this->belongsTo(Massage::class, 'massage_id');
     }
